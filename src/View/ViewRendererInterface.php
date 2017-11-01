@@ -4,7 +4,7 @@ namespace SONFin\View;
 
 use Psr\Http\Message\ResponseInterface;
 
-interface ViewRenderInterface
+interface ViewRendererInterface
 {
     public function render(string $template, array $context = []): ResponseInterface;
 }

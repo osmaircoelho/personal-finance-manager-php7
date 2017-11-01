@@ -3,42 +3,38 @@ declare(strict_types=1);
 
 namespace SONFin\Plugins;
 
-
-use Aura\Router\RouterContainer;
 use Interop\Container\ContainerInterface;
-use Psr\Http\Message\RequestInterface;
 use SONFin\ServiceContainerInterface;
-use Zend\Diactoros\ServerRequestFactory;
+//use SONFin\View\Twig\TwigGlobals;
+use SONFin\View\Twig\TwigGlobals;
+use SONFin\View\ViewRenderer;
 
-class RoutePlugin implements PluginInterface
+
+class ViewPlugin implements PluginInterface
 {
 
     public function register(ServiceContainerInterface $container)
     {
-        $routerContainer = new RouterContainer();
-        /* Registrar as rotas da aplicacao*/
-        $map = $routerContainer->getMap();
-        /* Tem a funcao de identificar a rota que esta sendo acessada */
-        $matcher = $routerContainer->getMatcher();
-        /* tem a funcao de gerar links com a base nas rotas registradas*/
-        $generator = $routerContainer->getGenerator();
-        $request = $this->getRequest();
+        $container->addLazy('twig', function(ContainerInterface $container){
+           $loader = new \Twig_Loader_Filesystem(__DIR__ .'/../../templates');
+           $twig = new \Twig_Environment($loader);
 
-        $container->add('routing', $map);
-        $container->add('routing.matcher', $matcher);
-        $container->add('routing.generator', $generator);
-        $container->add(RequestInterface::class, $request);
+            $auth = $container->get('auth');
 
-        $container->addLazy('route', function (ContainerInterface $container){
-             $matcher = $container->get('routing.matcher');
-             $request = $container->get(RequestInterface::class);
-             return $matcher->match($request);
+           $generator = $container->get('routing.generator');
+
+           $twig->addExtension(new TwigGlobals($auth));
+           $twig->addFunction(new \Twig_SimpleFunction('route',
+               function (string $name, array $params=[]) use($generator){
+                    return $generator->generate($name, $params);
+               }));
+
+           return $twig;
+        });
+        $container->addLazy('view.renderer', function(ContainerInterface $container){
+           $twigEnvironment = $container->get('twig');
+           return new ViewRenderer($twigEnvironment);
         });
     }
-    protected function getRequest(): RequestInterface
-    {
-        return ServerRequestFactory::fromGlobals(
-            $_SERVER, $_GET, $_POST, $_COOKIE, $_FILES
-        );
-    }
+
 }

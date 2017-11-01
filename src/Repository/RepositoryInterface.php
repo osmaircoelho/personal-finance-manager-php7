@@ -1,15 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: coelho
- * Date: 6/26/2017
- * Time: 6:42 PM
- */
+declare(strict_types=1);
 
 namespace SONFin\Repository;
 
 
 interface RepositoryInterface
-{
-
+{   public function all(): array;
+    public function find(int $id, bool $failIfNotExist = true);
+    public function create(array $data);
+    public function update(int $id, array $data);
+    public function delete(int $id);
+    public function findByField(string $field, $value);
 }

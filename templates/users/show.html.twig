@@ -6,18 +6,18 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        seeing  cost category
+                        seeing new user
                     </h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('category-costs.edit', {'id' : category.id}) }}"
+                            <a href="{{ route('users.edit', {'id' : user.id}) }}"
                                class="btn btn-primary">
                                 <span class="glyphicon  glyphicon-pencil"></span>
                             </a>
 
-                            <a href="{{ route('category-costs.delete', {'id' : category.id}) }}"
+                            <a href="{{ route('users.delete', {'id' : user.id}) }}"
                                class="btn btn-danger">
                                 <span class="glyphicon  glyphicon-remove"></span>
                             </a>
@@ -30,11 +30,15 @@
                                 <tbody>
                                 <tr>
                                     <th scope="row">#</th>
-                                    <td>{{ category.id }}</td>
+                                    <td>{{ user.id }}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Name</th>
-                                    <td>{{ category.name }}</td>
+                                    <td>{{ user.first_name ~ ' ' ~ user.last_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Email</th>
+                                    <td>{{ user.email }}</td>
                                 </tr>
                                 </tbody>
                             </table>

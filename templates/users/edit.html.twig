@@ -6,13 +6,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Editing cost category
+                        Editing new user
                     </h3>
                 </div>
                 <div class="panel-body">
-                    {% set action = route('category-costs.update', {'id':category.id}) %}
+                    {% set action = route('users.update', {'id':user.id}) %}
                     {% set submitIcon = 'pencil' %}
-                    {% include 'category-costs/_form.html.twig' %}
+                    {% include 'users/_form.html.twig' %}
                 </div>
             </div>
         </div>

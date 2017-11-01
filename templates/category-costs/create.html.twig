@@ -6,48 +6,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Cost category management
+                        new cost category
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="#" class="btn btn-default">
-                                 <span class="glyphicon glyphicon-plus"></span>
-                            </a>
-                        </div>
-                    </div>
-                    <br/>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>Name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for category in categories %}
-                                        <tr>
-                                            <td>{{ category.id }}</td>
-                                            <td>{{ category.name }}</td>
-                                            <td>
-                                                <a href="#">
-                                                    <span class="glyphicon  glyphicon-pencil"></span>
-                                                </a>
-                                                |
-                                                <a href="#">
-                                                    <span class="glyphicon  glyphicon-remove"></span>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                             <div/>
-                    </div>
+                    {% set action = route('category-costs.store')%}
+                    {% set submitIcon = 'floppy-disk' %}
+                    {% include 'category-costs/_form.html.twig' %}
                 </div>
             </div>
         </div>

@@ -4,24 +4,29 @@ declare(strict_types=1);
 namespace SONFin\Plugins;
 
 use Interop\Container\ContainerInterface;
+use SONFin\Models\CategoryCost;
+use SONFin\Models\User;
+use SONFin\Repository\RepositoryFactory;
 use SONFin\ServiceContainerInterface;
-//use SONFin\View\Twig\TwigGlobals;
-use SONFin\View\ViewRenderer;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
-
-class ViewPlugin implements PluginInterface
+class DbPlugin implements PluginInterface
 {
 
     public function register(ServiceContainerInterface $container)
     {
-        $container->addLazy('twig', function(ContainerInterface $container){
-           $loader = new \Twig_Loader_Filesystem(__DIR__ .'/../../templates');
-           $twig = new \Twig_Environment($loader);
-           return $twig;
+        $capsule = new Capsule();
+        $config = include __DIR__ .'/../../config/db.php';
+        $capsule->addConnection($config['development']);
+        $capsule->bootEloquent();
+
+        $container->add('repository.factory', new RepositoryFactory());
+        $container->addLazy('category-cost.repository', function(ContainerInterface $container){
+            return $container->get('repository.factory')->factory(CategoryCost::class);
         });
-        $container->addLazy('view.renderer', function(ContainerInterface $container){
-           $twigEnvironment = $container->get('twig');
-           return new ViewRenderer($twigEnvironment);
+
+        $container->addLazy('user.repository', function(ContainerInterface $container){
+            return $container->get('repository.factory')->factory(User::class);
         });
     }
 

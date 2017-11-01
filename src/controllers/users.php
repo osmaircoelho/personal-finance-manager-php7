@@ -2,60 +2,60 @@
 use Psr\Http\Message\ServerRequestInterface;
 
 $app
-    ->get('/category-costs', function() use ($app) {
+    ->get('/users', function() use ($app) {
         $view = $app->service('view.renderer');
-        $repository = $app->service('category-cost.repository');
-        $categories = $repository->all();
-        return  $view->render('category-costs/list.html.twig', [
-            'categories' => $categories
+        $repository = $app->service('user.repository');
+        $users = $repository->all();
+        return  $view->render('users/list.html.twig', [
+            'users' => $users
         ]);
-    }, 'category-costs.list')
+    }, 'users.list')
 
-    ->get('/category-costs/new', function() use ($app) {
+    ->get('/users/new', function() use ($app) {
         $view = $app->service('view.renderer');
-        return  $view->render('category-costs/create.html.twig');
-    }, 'category-costs.new')
+        return  $view->render('users/create.html.twig');
+    }, 'users.new')
 
-    ->post('/category-costs/store', function(ServerRequestInterface $request) use ($app) {
+    ->post('/users/store', function(ServerRequestInterface $request) use ($app) {
         //cadastro de category
         $data = $request->getParsedBody();
-        $repository = $app->service('category-cost.repository');
+        $repository = $app->service('user.repository');
         $repository->create($data);
-        return $app->route('category-costs.list');
+        return $app->route('users.list');
 
-    }, 'category-costs.store')
+    }, 'users.store')
 
-    ->get('/category-costs/{id}/edit', function(ServerRequestInterface $request) use ($app) {
+    ->get('/users/{id}/edit', function(ServerRequestInterface $request) use ($app) {
         $view = $app->service('view.renderer');
-        $repository = $app->service('category-cost.repository');
+        $repository = $app->service('user.repository');
         $id = $request->getAttribute('id');
-        $category = $repository->find($id);
-        return  $view->render('category-costs/edit.html.twig', [
-            'category' => $category
+        $user = $repository->find($id);
+        return  $view->render('users/edit.html.twig', [
+            'user' => $user
         ]);
-    }, 'category-costs.edit')
+    }, 'users.edit')
 
-    ->post('/category-costs/{id}/update', function(ServerRequestInterface $request) use ($app) {
-        $repository = $app->service('category-cost.repository');
+    ->post('/users/{id}/update', function(ServerRequestInterface $request) use ($app) {
+        $repository = $app->service('user.repository');
         $id = $request->getAttribute('id');
         $data = $request->getParsedBody();
         $repository->update($id, $data);
-        return  $app->route('category-costs.list');
-    }, 'category-costs.update')
+        return  $app->route('users.list');
+    }, 'users.update')
 
-    ->get('/category-costs/{id}/show', function(ServerRequestInterface $request) use ($app) {
+    ->get('/users/{id}/show', function(ServerRequestInterface $request) use ($app) {
         $view = $app->service('view.renderer');
-        $repository = $app->service('category-cost.repository');
+        $repository = $app->service('user.repository');
         $id = $request->getAttribute('id');
-        $category = $repository->find($id);
-        return  $view->render('category-costs/show.html.twig', [
-            'category' => $category
+        $user = $repository->find($id);
+        return  $view->render('users/show.html.twig', [
+            'user' => $user
         ]);
-    }, 'category-costs.show')
+    }, 'users.show')
 
-    ->get('/category-costs/{id}/delete', function(ServerRequestInterface $request) use ($app) {
-        $repository = $app->service('category-cost.repository');
+    ->get('/users/{id}/delete', function(ServerRequestInterface $request) use ($app) {
+        $repository = $app->service('user.repository');
         $id = $request->getAttribute('id');
         $repository->delete($id);
-        return $app->route('category-costs.list');
-    }, 'category-costs.delete');
+        return $app->route('users.list');
+    }, 'users.delete');

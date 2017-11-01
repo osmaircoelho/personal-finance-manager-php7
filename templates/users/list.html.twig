@@ -6,13 +6,13 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Cost category management
+                       User administration
                     </h3>
                 </div>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="{{ route('category-costs.new') }}" class="btn btn-default">
+                            <a href="{{ route('users.new') }}" class="btn btn-default">
                                  <span class="glyphicon glyphicon-plus"></span>
                             </a>
                         </div>
@@ -25,20 +25,22 @@
                                     <tr>
                                         <th style="width: 10px">#</th>
                                         <th>Name</th>
+                                        <th>Email</th>
                                         <th>Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for category in categories %}
+                                    {% for user in users %}
                                         <tr>
-                                            <td>{{ category.id }}</td>
-                                            <td>{{ category.name }}</td>
+                                            <td>{{ user.id }}</td>
+                                            <td>{{ user.first_name ~ ' ' ~ user.last_name }}</td>
+                                            <td>{{ user.email }}</td>
                                             <td>
-                                                <a href="{{ route('category-costs.edit', {'id' : category.id}) }}">
+                                                <a href="{{ route('users.edit', {'id' : user.id}) }}">
                                                     <span class="glyphicon  glyphicon-pencil"></span>
                                                 </a>
                                                 |
-                                                <a href="{{ route('category-costs.show', {'id' : category.id}) }}">
+                                                <a href="{{ route('users.show', {'id' : user.id}) }}">
                                                     <span class="glyphicon  glyphicon-remove"></span>
                                                 </a>
                                             </td>

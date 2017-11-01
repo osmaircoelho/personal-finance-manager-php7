@@ -1,15 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: coelho
- * Date: 7/8/2017
- * Time: 1:59 PM
- */
+declare(strict_types=1);
 
-namespace SON\Auth;
+namespace SONFin\Auth;
 
+
+use SONFin\Models\UserInterface;
 
 interface AuthInterface
 {
+    public function login(array $credentials): bool;
 
+    public function check(): bool;
+
+    public function logout(): void;
+
+    public function hashPassword(string $password): string;
+
+    public function user(): ?UserInterface; //ou user interface ou nul
 }
