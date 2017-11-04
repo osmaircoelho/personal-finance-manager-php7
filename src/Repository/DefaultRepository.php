@@ -38,18 +38,28 @@ class DefaultRepository implements RepositoryInterface
         return $this->model;
     }
 
-    public function update(int $id, array $data)
+    /* em php7 existe a possibilidade de assinatura de metodo
+     * por exemplo public funciton Foo(int data, array data2)
+     *
+     * */
+
+    public function update($id, array $data)
     {
-        $model = $this->find($id);
+        $model = $this->findInternal($id);
         $model->fill($data);
         $model->save();
         return $model;
     }
 
-    public function delete(int $id)
+    public function delete($id)
     {
-        $model = $this->find($id);
+        $model = $this->findInternal($id);
+
         $model->delete();
+    }
+    protected function findInternal($id)
+    {
+        return is_array($id) ? $this->findOneBy($id) : $this->find($id);
     }
 
     public function find(int $id, bool $failIfNotExist  = true)
@@ -60,5 +70,16 @@ class DefaultRepository implements RepositoryInterface
     public function findByField(string $field, $value)
     {
         return  $this->model->where($field, '=', $value)->get();
+    }
+
+    public function findOneBy(array $search)
+    {
+        $queryBuilder = $this->model;
+        foreach ($search as $field => $value)
+        {
+            $queryBuilder = $queryBuilder->where($field, '=', $value);
+
+        }
+        return $queryBuilder->firstOrFail();
     }
 }
