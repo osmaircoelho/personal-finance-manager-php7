@@ -20,6 +20,7 @@ class CreateBillReceiveTable extends AbstractMigration
 
     public function down()
     {
+
         $this->dropTable('bill_receives');
     }
 }
