@@ -9,6 +9,7 @@ use SONFin\Models\BillReceive;
 use SONFin\Models\CategoryCost;
 use SONFin\Models\User;
 use SONFin\Repository\RepositoryFactory;
+use SONFin\Repository\StatementRepository;
 use SONFin\ServiceContainerInterface;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
@@ -37,6 +38,10 @@ class DbPlugin implements PluginInterface
 
         $container->addLazy('user.repository', function(ContainerInterface $container){
             return $container->get('repository.factory')->factory(User::class);
+        });
+
+        $container->addLazy('statement.repository', function(){
+            return new StatementRepository();
         });
     }
 
