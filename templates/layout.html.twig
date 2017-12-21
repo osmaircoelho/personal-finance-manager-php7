@@ -9,37 +9,52 @@
 
 {% if Auth.check() %}
 
-<nav class="navbar navbar-default navbar-inverse">
-    <div class="container">
-        <div class="navbar-header">
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#app-navbar-collapse">
-                <span class="sr-only">Toggle Navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-            <a class="navbar-brand" href="#">
-                SON Finances
-            </a>
+                <a class="navbar-brand" href="#">
+                    SON Finances
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ route('category-costs.list') }}">Cost Category</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            Accounts <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('bill-pays.list') }}">Accounts Payable</a></li>
+                            <li><a href="{{ route('bill-receives.list') }}">Accounts Receivable</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ route('statements.list') }}">Statements</a></li>
+                    <li><a href="{{ route('charts.list') }}">Spending Chart</a></li>
+                    <li><a href="{{ route('users.list') }}">User</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>{{ Auth.user().fullname }}</a></li>
+                    <li><a href="{{ route('auth.logout') }}">Logout</a></li>
+                </ul>
+            </div>
         </div>
-
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <ul class="nav navbar-nav">
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a>Hello {{ Auth.user().fullname }}</a></li>
-                <li><a href="{{ route('auth.logout') }}">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+    </nav>
 {% endif %}
 {% block content %}{% endblock %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% block scripts %}{% endblock %}
 </body>
 </html>
