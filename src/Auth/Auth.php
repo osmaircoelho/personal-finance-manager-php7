@@ -49,8 +49,9 @@ class Auth implements AuthInterface
         return $this->jasnyAuth->hashPassword($password);
     }
 
-    protected function sessionStart(){
-        if(session_status() == PHP_SESSION_NONE){
+    protected function sessionStart()
+    {
+        if(session_status() == PHP_SESSION_NONE) {
             session_start();
         }
     }

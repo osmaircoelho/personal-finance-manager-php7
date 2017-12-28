@@ -9,7 +9,6 @@ use Jasny\Auth\User;
 use SONFin\Repository\RepositoryInterface;
 
 class JasnyAuth extends \Jasny\Auth
-
 {
     use Sessions;
     /**
@@ -29,7 +28,7 @@ class JasnyAuth extends \Jasny\Auth
     /**
      * Fetch a user by ID
      *
-     * @param int|string $id
+     * @param  int|string $id
      * @return User|null
      */
     public function fetchUserById($id)
@@ -40,11 +39,11 @@ class JasnyAuth extends \Jasny\Auth
     /**
      * Fetch a user by username
      *
-     * @param string $username
+     * @param  string $username
      * @return User|null
      */
     public function fetchUserByUsername($username)
     {
-       return $this->repository->findByField('email', $username)[0];
+        return $this->repository->findByField('email', $username)[0];
     }
 }

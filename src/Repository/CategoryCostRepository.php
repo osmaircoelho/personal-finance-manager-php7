@@ -4,7 +4,8 @@ namespace SONFin\Repository;
 
 use SONFin\Models\CategoryCost;
 
-class CategoryCostRepository extends DefaultRepository implements CategoryCostRepositoryInterface{
+class CategoryCostRepository extends DefaultRepository implements CategoryCostRepositoryInterface
+{
 
 
     /**

@@ -18,6 +18,7 @@ class Application
 
     /**
      * Application constructor.
+     *
      * @param $serviceContainer
      */
     public function __construct(ServiceContainerInterface $serviceContainer)
@@ -31,7 +32,7 @@ class Application
     }
     public function addService(String $name, $service):void
     {
-        if(is_callable($service)){
+        if(is_callable($service)) {
             $this->serviceContainer->addLazy($name, $service);
         }else{
             $this->serviceContainer->add($name, $service);
@@ -68,15 +69,17 @@ class Application
         return $this->redirect($path);
     }
 
-    public function before(callable $callback): Application{
+    public function before(callable $callback): Application
+    {
         array_push($this->befores, $callback);
         return $this;
     }
 
-    protected function runBefores(): ?ResponseInterface{
+    protected function runBefores(): ?ResponseInterface
+    {
         foreach ($this->befores as $callback){
             $result = $callback($this->service(RequestInterface::class));
-            if($result instanceof ResponseInterface){
+            if($result instanceof ResponseInterface) {
                 return $result;
             }
         }
@@ -86,9 +89,13 @@ class Application
     public function start(): void
     {
         $route = $this->service('route');
-        /** @var ServerRequestInterface $request*/
+        /**
+         *
+         *
+ * @var ServerRequestInterface $request
+*/
         $request = $this->service(RequestInterface::class);
-        if (!$route){
+        if (!$route) {
             echo "Page not found";
             exit;
         }
@@ -97,7 +104,7 @@ class Application
         }
 
         $result = $this->runBefores();
-        if($result){
+        if($result) {
             $this->emitResponse($result);
             return;
         }
