@@ -1,5 +1,11 @@
 {
     "name": "coelho/son-financas",
+    "authors": [
+        {
+            "name": "Osmair Coelho",
+            "email": "osmair.coelho@gmail.com"
+        }
+    ],
     "type": "no",
     "require": {
         "robmorgan/phinx": "0.7.1",
@@ -19,5 +25,12 @@
     "require-dev": {
         "fzaninotto/faker": "1.6.0",
         "squizlabs/php_codesniffer": "*"
+    },
+
+    "scripts": {
+        "post-install-cmd": [
+            "vendor/bin/phinx migrate"
+        ]
     }
+
 }
