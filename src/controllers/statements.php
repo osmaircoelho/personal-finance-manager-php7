@@ -17,11 +17,11 @@ $app
             $dateEnd = $dateEnd instanceof \DateTime ? $dateEnd->format('Y-m-d')
             : \DateTime::createFromFormat('d/m/Y', $dateEnd)->format('Y-m-d');
 
-            $statement = $repository->all($dateStart, $dateEnd, $auth->user()->getId());
+            $statements = $repository->all($dateStart, $dateEnd, $auth->user()->getId());
 
             return  $view->render(
                 'statements.html.twig', [
-                'statements' => $statement
+                'statements' => $statements
                 ]
             );
         }, 'statements.list'

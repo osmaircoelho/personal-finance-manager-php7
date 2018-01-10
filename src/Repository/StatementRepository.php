@@ -23,15 +23,16 @@ class StatementRepository implements StatementRepositoryInterface
             ->whereBetween('date_launch', [$dateStart, $dateEnd])
             ->where('user_id', $userId)
             ->get();
+
         //Collection [0 => BillPay, 1 => BillPay...]
         //Collection [0 => BillReceive, 1 => BillReceives...]
-        $collection = new Collection(array_merge_recursive($billPays->toArray()), array_merge_recursive($billReceives->toArray()));
-        $statement = $collection->sortByDesc('date_launch');
+        $collection = new Collection(array_merge_recursive($billPays->toArray(), $billReceives->toArray()));
+        $statements = $collection->sortByDesc('date_launch');
 
         return [
-          'statements' => $statement,
-          'total_pays' => $billPays->sum('value'),
-          'total_receives' => $billReceives->sum('value')
+            'statements' => $statements,
+            'total_pays' => $billPays->sum('value'),
+            'total_receives' => $billReceives->sum('value')
         ];
     }
 }
