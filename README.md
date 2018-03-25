@@ -10,7 +10,7 @@ Develop from scratch a personal finance manager with PHP 7.1 object-oriented usi
  - PHP CodeSniffer
  - Deploy on Heroku
  
- #Libraries used
+ # Libraries used
  #### Phinx
  Phinx makes it ridiculously easy to manage the database migrations for your PHP app. In less than 5 minutes, you can install Phinx and create your first database migration. Phinx is just about migrations without all the bloat of a database ORM system or framework.
  Checkout [Packagist.org](https://packagist.org/packages/robmorgan/phinx) or
