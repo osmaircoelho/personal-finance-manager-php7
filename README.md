@@ -19,9 +19,12 @@ There is a heroku webapp live at https://salty-oasis-45403.herokuapp.com/login
  Checkout [Packagist.org](https://packagist.org/packages/robmorgan/phinx) or
  [Phinx.org](https://phinx.org)
  
- #### Pimple
+ #### Pimple-container-interop
+ This container extends the Pimple 3 container. It also adds the delegate lookup feature from container-interop.
+ Checkout [GitHub pimple-container-interop](https://github.com/xtreamwayz/pimple-container-interop)
+ 
  Pimple is a simple PHP Dependency Injection Container
- https://pimple.symfony.com/
+ https://pimple.symfony.com/ 
  
  #### Aura.Router
  Powerful, flexible web routing for PSR-7 requests [Aura.Router](https://github.com/auraphp/Aura.Router) 
